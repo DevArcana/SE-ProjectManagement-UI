@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react"
 import { useForm } from 'react-hook-form';
 import { register as appRegister } from '../api/authAPI';
+import { useHistory } from 'react-router-dom'
 
 interface Inputs {
     username: string,
@@ -20,6 +21,7 @@ interface Inputs {
 };
 
 export const RegisterForm: React.FC = () => {
+    const history = useHistory();
     const { register, handleSubmit, errors } = useForm<Inputs>();
     const [ registerError, setRegisterError ] = useState<string | null>(null);
     const onSubmit = (data: Inputs) => {
@@ -105,17 +107,18 @@ export const RegisterForm: React.FC = () => {
                             transform: 'scale(1.02)'}}
                     _active={{ bgColor: '#9E6EB5',
                             transform: 'scale(1.02)'}}>Sign Up</Button>
-                <Button 
-                    width='45%' 
-                    bgColor='#FFFFFF'
-                    border='1px'
-                    borderRadius={14}
-                    borderColor='#9E6EB5'
-                    color='#9E6EB5'
-                    _hover={{ bgColor: '#FFFFFF',
-                            transform: 'scale(1.02)'}}
-                    _active={{ bgColor: '#FFFFFF',
-                            transform: 'scale(1.02)'}}>Log In</Button>
+                    <Button 
+                        width='45%' 
+                        bgColor='#FFFFFF'
+                        border='1px'
+                        borderRadius={14}
+                        borderColor='#9E6EB5'
+                        color='#9E6EB5'
+                        onClick={() => history.push('/login')}
+                        _hover={{ bgColor: '#FFFFFF',
+                                transform: 'scale(1.02)'}}
+                        _active={{ bgColor: '#FFFFFF',
+                                transform: 'scale(1.02)'}}>Log In</Button>
             </Flex>
         </form>
     )

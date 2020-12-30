@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthProvider'
-import { getToken } from '../helpers/tokenStorage'
+import { useHistory } from 'react-router-dom'
 
 interface Inputs {
     login: string,
@@ -17,6 +17,7 @@ interface Inputs {
 };
 
 export const LoginForm: React.FC = () => {
+    const history = useHistory();
     const { login } = useAuth();
     const { register, handleSubmit, errors } = useForm<Inputs>();
     const [ loginError, setLoginError ] = useState<boolean>(false);
@@ -72,6 +73,7 @@ export const LoginForm: React.FC = () => {
                     borderRadius={14}
                     borderColor='#9E6EB5'
                     color='#9E6EB5'
+                    onClick={() => history.push('/register')}
                     _hover={{ bgColor: '#FFFFFF',
                                 transform: 'scale(1.02)'}}
                     _active={{ bgColor: '#FFFFFF',

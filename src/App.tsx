@@ -1,10 +1,7 @@
 import * as React from "react"
-import {RegisterView} from "./authentication/views/RegisterView"
-import {LoginView} from "./authentication/views/LoginView"
-import {login, register} from "./authentication/api/authAPI"
 import { AuthProvider } from './authentication/context/AuthProvider';
+import { AppRouter } from './routing/AppRouter';
 import {
-  Flex,
   ChakraProvider,
   extendTheme
 } from "@chakra-ui/react"
@@ -22,7 +19,7 @@ export const App: React.FC = () => {
   return (
     <ChakraProvider theme={theme}>
       <AuthProvider>
-        <LoginView />
+        <AppRouter />
       </AuthProvider>
     </ChakraProvider>
   )
