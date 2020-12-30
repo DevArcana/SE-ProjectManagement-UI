@@ -4,32 +4,53 @@ import {
     Button,
     Input,
     FormControl,
-    FormLabel
+    FormLabel,
+    FormErrorMessage
 } from "@chakra-ui/react"
+import { useForm } from 'react-hook-form';
+import { login } from '../api/authAPI';
+
+interface Inputs {
+    login: string,
+    password: string
+};
 
 export const LoginForm: React.FC = () => {
+    const { register, handleSubmit, errors } = useForm<Inputs>();
+    const onSubmit = (data: Inputs) => {
+        console.log(data);
+        console.log(login(data.login, data.password));
+    }
+
     return (
-        <form style={{width: '100%'}}>
-            <FormControl>
+        <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
+            <FormControl isInvalid={!!(errors.login)} isRequired>
                 <FormLabel color='#9E6EB5'>Email address</FormLabel>
-                <Input 
-                    type='email' 
+                <Input
+                    name='login'
+                    type='text' 
                     placeholder='Enter email address'
                     borderColor='#9E6EB5'
                     focusBorderColor='#9E6EB5'
-                    borderRadius={14}/>
+                    borderRadius={14}
+                    ref={register({ required: true })}/>
+                <FormErrorMessage>This field is required!</FormErrorMessage>
             </FormControl>
-            <FormControl mt={3}>
+            <FormControl mt={3} isInvalid={!!(errors.password)} isRequired>
                 <FormLabel color='#9E6EB5'>Password</FormLabel>
                 <Input 
+                    name='password'
                     type='password' 
                     placeholder='Enter password'
                     borderColor='#9E6EB5'
                     focusBorderColor='#9E6EB5'
-                    borderRadius={14}/>
+                    borderRadius={14}
+                    ref={register({ required: true })}/>
+                <FormErrorMessage>This field is required!</FormErrorMessage>
             </FormControl>
             <Flex justifyContent='space-between' mt={6}>
-                <Button 
+                <Button
+                    type='submit'
                     width='45%' 
                     borderRadius={14}
                     bgColor='#0F4C81'
