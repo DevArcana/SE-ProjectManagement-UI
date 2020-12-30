@@ -6,7 +6,7 @@ export const login = (username: string, password: string): Promise<string | null
             username,
             password
         })
-        .then(response => response.data)
+        .then(response => response.data.token)
         .catch(() => null)
 )
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Flex,
     Button,
@@ -21,14 +21,21 @@ interface Inputs {
 
 export const RegisterForm: React.FC = () => {
     const { register, handleSubmit, errors } = useForm<Inputs>();
+    const [ registerError, setRegisterError ] = useState<string | null>(null);
     const onSubmit = (data: Inputs) => {
-        console.log(data);
-        console.log(appRegister(data.username, data.email, data.password));
+        if (data.password !== data.confirmPassword) {
+            setRegisterError('Passwords are not the same!');
+        }
+        else appRegister(data.username, data.email, data.password)
+            .then(success => {
+                success ? setRegisterError(null)
+                        : setRegisterError('User already exists!');
+            })
     }
 
     return (
         <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
-            <FormControl isInvalid={!!(errors.username)} isRequired>
+            <FormControl isInvalid={!!errors.username} isRequired>
                 <FormLabel color='#9E6EB5'>Username</FormLabel>
                 <Input 
                     name='username'
@@ -41,7 +48,7 @@ export const RegisterForm: React.FC = () => {
                     />
                 <FormErrorMessage>This field is required!</FormErrorMessage>
             </FormControl>
-            <FormControl mt={3} isInvalid={!!(errors.email)} isRequired>
+            <FormControl mt={3} isInvalid={!!errors.email} isRequired>
                 <FormLabel color='#9E6EB5'>Email address</FormLabel>
                 <Input 
                     name='email'
@@ -53,7 +60,7 @@ export const RegisterForm: React.FC = () => {
                     ref={register({ required: true })}/>
                 <FormErrorMessage>This field is required!</FormErrorMessage>
             </FormControl>
-            <FormControl mt={3} isInvalid={!!(errors.password)} isRequired>
+            <FormControl mt={3} isInvalid={!!errors.password} isRequired>
                 <FormLabel color='#9E6EB5'>Password</FormLabel>
                 <Input 
                     name='password'
@@ -65,7 +72,7 @@ export const RegisterForm: React.FC = () => {
                     ref={register({ required: true })}/>
                 <FormErrorMessage>This field is required!</FormErrorMessage>
             </FormControl>
-            <FormControl mt={3} isInvalid={!!(errors.confirmPassword)} isRequired>
+            <FormControl mt={3} isInvalid={!!errors.confirmPassword} isRequired>
                 <FormLabel color='#9E6EB5'>Confirm password</FormLabel>
                 <Input 
                     name='confirmPassword'
@@ -77,7 +84,10 @@ export const RegisterForm: React.FC = () => {
                     ref={register({ required: true })}/>
                 <FormErrorMessage>This field is required!</FormErrorMessage>
             </FormControl>
-            <FormControl my={6} isInvalid={!!(errors.checked)} isRequired>
+            <FormControl isInvalid={!!registerError}>
+                <FormErrorMessage mt={3}>{registerError}</FormErrorMessage>
+            </FormControl>
+            <FormControl my={6} isInvalid={!!errors.checked} isRequired>
                 <Checkbox 
                     name='checked'
                     color='#707070'
