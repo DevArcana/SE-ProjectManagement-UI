@@ -6,7 +6,8 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    Checkbox
+    Checkbox,
+    Text
 } from "@chakra-ui/react"
 import { useForm } from 'react-hook-form';
 import { register as appRegister } from '../api/authAPI';
@@ -23,16 +24,24 @@ interface Inputs {
 export const RegisterForm: React.FC = () => {
     const history = useHistory();
     const { register, handleSubmit, errors } = useForm<Inputs>();
+    const [ registered, setRegistered ] = useState<boolean>(false);
     const [ registerError, setRegisterError ] = useState<string | null>(null);
     const onSubmit = (data: Inputs) => {
+        setRegistered(false);
         if (data.password !== data.confirmPassword) {
             setRegisterError('Passwords are not the same!');
         }
-        else appRegister(data.username, data.email, data.password)
+        else {
+            setRegisterError(null);
+            appRegister(data.username, data.email, data.password)
             .then(success => {
-                success ? setRegisterError(null)
-                        : setRegisterError('User already exists!');
+                if (success) {
+                    setRegisterError(null);
+                    setRegistered(true);
+                }
+                else setRegisterError('User already exists!');
             })
+        }
     }
 
     return (
@@ -46,9 +55,14 @@ export const RegisterForm: React.FC = () => {
                     borderColor='#9E6EB5'
                     focusBorderColor='#9E6EB5'
                     borderRadius={14}
-                    ref={register({ required: true })}
+                    ref={register({ 
+                            required: 'This field is required!',
+                            validate: username => !/[^a-zA-Z0-9]/.test(username)
+                                    || 'Username must include only letters and digits!'
+                        })
+                    }
                     />
-                <FormErrorMessage>This field is required!</FormErrorMessage>
+                <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
             </FormControl>
             <FormControl mt={3} isInvalid={!!errors.email} isRequired>
                 <FormLabel color='#9E6EB5'>Email address</FormLabel>
@@ -60,7 +74,7 @@ export const RegisterForm: React.FC = () => {
                     focusBorderColor='#9E6EB5'
                     borderRadius={14}
                     ref={register({ required: true })}/>
-                <FormErrorMessage>This field is required!</FormErrorMessage>
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
             </FormControl>
             <FormControl mt={3} isInvalid={!!errors.password} isRequired>
                 <FormLabel color='#9E6EB5'>Password</FormLabel>
@@ -71,8 +85,24 @@ export const RegisterForm: React.FC = () => {
                     borderColor='#9E6EB5'
                     focusBorderColor='#9E6EB5'
                     borderRadius={14}
-                    ref={register({ required: true })}/>
-                <FormErrorMessage>This field is required!</FormErrorMessage>
+                    ref={register({ 
+                            required: 'This field is required!',
+                            minLength: {
+                                value: 6,
+                                message: 'Password must have at least 6 characters!'
+                            },
+                            validate: {
+                                digit: password => /[0-9]/.test(password)
+                                    || 'Password must include at least one digit!',
+                                lowercase: password => /[a-z]/.test(password)
+                                    || 'Password must include at least one lowercase letter!',
+                                uppercase: password => /[A-Z]/.test(password)
+                                    || 'Password must include at least one uppercase letter!',
+                                nonAlphaNumeric: password => /[^a-zA-Z0-9]/.test(password)
+                                    || 'Password must include at least one non-alphanumeric character!'
+                            }})
+                        }/>
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
             <FormControl mt={3} isInvalid={!!errors.confirmPassword} isRequired>
                 <FormLabel color='#9E6EB5'>Confirm password</FormLabel>
@@ -83,8 +113,8 @@ export const RegisterForm: React.FC = () => {
                     borderColor='#9E6EB5'
                     focusBorderColor='#9E6EB5'
                     borderRadius={14}
-                    ref={register({ required: true })}/>
-                <FormErrorMessage>This field is required!</FormErrorMessage>
+                    ref={register({ required: 'This field is required!' })}/>
+                <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!registerError}>
                 <FormErrorMessage mt={3}>{registerError}</FormErrorMessage>
@@ -93,9 +123,10 @@ export const RegisterForm: React.FC = () => {
                 <Checkbox 
                     name='checked'
                     color='#707070'
-                    ref={register({ required: true })}>I accept the policy and terms</Checkbox>
-                <FormErrorMessage>This field is required!</FormErrorMessage>
+                    ref={register({ required: 'This field is required!' })}>I accept the policy and terms</Checkbox>
+                <FormErrorMessage>{errors.checked?.message}</FormErrorMessage>
             </FormControl>
+            {registered && <Text color='#19A974' mb={3}>User registered successfully!</Text>}
             <Flex justifyContent='space-between'>
                 <Button
                     type='submit'

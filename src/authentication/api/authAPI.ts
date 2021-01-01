@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const login = (username: string, password: string): Promise<string | null> => (
+export const login = (login: string, password: string): Promise<string | null> => (
     axios
         .post('api/authenticate/login', {
-            username,
+            login,
             password
         })
         .then(response => response.data.token)

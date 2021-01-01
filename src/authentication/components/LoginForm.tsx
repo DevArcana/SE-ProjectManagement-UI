@@ -29,16 +29,16 @@ export const LoginForm: React.FC = () => {
     return (
         <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.login} isRequired>
-                <FormLabel color='#9E6EB5'>Email address</FormLabel>
+                <FormLabel color='#9E6EB5'>Login</FormLabel>
                 <Input
                     name='login'
                     type='text' 
-                    placeholder='Enter email address'
+                    placeholder='Enter email address or username'
                     borderColor='#9E6EB5'
                     focusBorderColor='#9E6EB5'
                     borderRadius={14}
-                    ref={register({ required: true })}/>
-                <FormErrorMessage>This field is required!</FormErrorMessage>
+                    ref={register({ required: 'This field is required!' })}/>
+                <FormErrorMessage>{errors.login?.message}</FormErrorMessage>
             </FormControl>
             <FormControl mt={3} isInvalid={!!errors.password} isRequired>
                 <FormLabel color='#9E6EB5'>Password</FormLabel>
@@ -49,8 +49,8 @@ export const LoginForm: React.FC = () => {
                     borderColor='#9E6EB5'
                     focusBorderColor='#9E6EB5'
                     borderRadius={14}
-                    ref={register({ required: true })}/>
-                <FormErrorMessage>This field is required!</FormErrorMessage>
+                    ref={register({ required: 'This field is required!' })}/>
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={loginError}>
                 <FormErrorMessage>Wrong username/email or password!</FormErrorMessage>
