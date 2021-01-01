@@ -15,7 +15,7 @@ import { FaIndent } from "react-icons/fa";
 import { UserMenu } from "../components/UserMenu";
 import { SideButtons } from "../components/SideButtons";
 function SideMenu() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
 
   return (
     <>
@@ -34,10 +34,15 @@ function SideMenu() {
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
+        variant="persistent"
+        trapFocus={false}
+        useInert={false}
       >
         <DrawerOverlay closeOnOverlayClick="false">
           <DrawerContent>
-            <DrawerCloseButton />
+            <DrawerCloseButton _hover={{ fontSize: "2xl" }}>
+              {<FaIndent />}
+            </DrawerCloseButton>
             <DrawerHeader>Application Name</DrawerHeader>
             <DrawerBody>
               <SideButtons></SideButtons>
