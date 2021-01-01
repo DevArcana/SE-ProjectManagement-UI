@@ -1,9 +1,9 @@
 import React from 'react';
-import {RegisterForm} from '../components/RegisterForm'
+import {RegisterForm} from '../components/RegisterForm';
 import {
     Flex,
     Heading
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 export const RegisterView: React.FC = () => {
     return (
@@ -13,5 +13,5 @@ export const RegisterView: React.FC = () => {
                 <RegisterForm />
             </Flex>
         </Flex>
-    )
+    );
 }

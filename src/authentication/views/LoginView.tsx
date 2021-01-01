@@ -1,9 +1,9 @@
 import React from 'react';
-import {LoginForm} from '../components/LoginForm'
+import {LoginForm} from '../components/LoginForm';
 import {
     Flex,
     Heading
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 export const LoginView: React.FC = () => {
     return (
@@ -13,5 +13,5 @@ export const LoginView: React.FC = () => {
                 <LoginForm />
             </Flex>
         </Flex>
-    )
+    );
 }

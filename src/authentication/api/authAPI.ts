@@ -8,7 +8,7 @@ export const login = (login: string, password: string): Promise<string | null> =
         })
         .then(response => response.data.token)
         .catch(() => null)
-)
+);
 
 export const register = (username: string, email: string, password: string): Promise<string | null> => (
     axios
@@ -19,4 +19,4 @@ export const register = (username: string, email: string, password: string): Pro
         })
         .then(response => response.data)
         .catch(() => null)
-)
+);

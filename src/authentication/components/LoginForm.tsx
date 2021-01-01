@@ -6,15 +6,15 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../context/AuthProvider'
-import { useHistory } from 'react-router-dom'
+import { useAuth } from '../context/AuthProvider';
+import { useHistory } from 'react-router-dom';
 
 interface Inputs {
     login: string,
     password: string
-};
+}
 
 export const LoginForm: React.FC = () => {
     const history = useHistory();
@@ -23,7 +23,7 @@ export const LoginForm: React.FC = () => {
     const [ loginError, setLoginError ] = useState<boolean>(false);
     const onSubmit = (data: Inputs) => {
         login(data.login, data.password)
-            .then(success => setLoginError(!success))
+            .then(success => setLoginError(!success));
     }
 
     return (
@@ -80,5 +80,5 @@ export const LoginForm: React.FC = () => {
                                 transform: 'scale(1.02)'}}>Sign Up</Button>
             </Flex>
         </form>
-    )
+    );
 }

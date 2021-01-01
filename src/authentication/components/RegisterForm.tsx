@@ -8,10 +8,10 @@ import {
     FormErrorMessage,
     Checkbox,
     Text
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 import { useForm } from 'react-hook-form';
 import { register as appRegister } from '../api/authAPI';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 interface Inputs {
     username: string,
@@ -19,7 +19,7 @@ interface Inputs {
     password: string,
     confirmPassword: string,
     checked: boolean
-};
+}
 
 export const RegisterForm: React.FC = () => {
     const history = useHistory();
@@ -40,7 +40,7 @@ export const RegisterForm: React.FC = () => {
                     setRegistered(true);
                 }
                 else setRegisterError('User already exists!');
-            })
+            });
         }
     }
 
@@ -152,5 +152,5 @@ export const RegisterForm: React.FC = () => {
                                 transform: 'scale(1.02)'}}>Log In</Button>
             </Flex>
         </form>
-    )
+    );
 }
