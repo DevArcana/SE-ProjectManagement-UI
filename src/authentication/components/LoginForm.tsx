@@ -26,7 +26,6 @@ export const LoginForm: React.FC = () => {
         errors, 
         formState: {isSubmitting}
     } = useForm<Inputs>();
-    console.log('isSubmitting', isSubmitting);
     const [loginError, setLoginError] = useState<boolean>(false);
     const onSubmit = async (data: Inputs) => {
         await login(data.login, data.password)
