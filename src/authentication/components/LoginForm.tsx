@@ -10,6 +10,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthProvider';
 import { useHistory } from 'react-router-dom';
+import { Routes } from '../../routing/routes';
 
 interface Inputs {
     login: string,
@@ -19,11 +20,17 @@ interface Inputs {
 export const LoginForm: React.FC = () => {
     const history = useHistory();
     const { login } = useAuth();
-    const { register, handleSubmit, errors } = useForm<Inputs>();
-    const [ loginError, setLoginError ] = useState<boolean>(false);
-    const onSubmit = (data: Inputs) => {
-        login(data.login, data.password)
-            .then(success => setLoginError(!success));
+    const { 
+        register, 
+        handleSubmit, 
+        errors, 
+        formState: {isSubmitting}
+    } = useForm<Inputs>();
+    console.log('isSubmitting', isSubmitting);
+    const [loginError, setLoginError] = useState<boolean>(false);
+    const onSubmit = async (data: Inputs) => {
+        await login(data.login, data.password)
+                .then(success => setLoginError(!success));
     }
 
     return (
@@ -62,6 +69,7 @@ export const LoginForm: React.FC = () => {
                     borderRadius={14}
                     bgColor='#0F4C81'
                     color='#FFFFFF'
+                    isLoading={isSubmitting}
                     _hover={{ bgColor: '#9E6EB5',
                                 transform: 'scale(1.02)'}}
                     _active={{ bgColor: '#9E6EB5',
@@ -73,7 +81,7 @@ export const LoginForm: React.FC = () => {
                     borderRadius={14}
                     borderColor='#9E6EB5'
                     color='#9E6EB5'
-                    onClick={() => history.push('/register')}
+                    onClick={() => history.push(Routes.REGISTER)}
                     _hover={{ bgColor: '#FFFFFF',
                                 transform: 'scale(1.02)'}}
                     _active={{ bgColor: '#FFFFFF',

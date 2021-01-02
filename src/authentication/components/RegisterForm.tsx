@@ -12,6 +12,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { register as appRegister } from '../api/authAPI';
 import { useHistory } from 'react-router-dom';
+import { Routes } from '../../routing/routes';
 
 interface Inputs {
     username: string,
@@ -23,24 +24,29 @@ interface Inputs {
 
 export const RegisterForm: React.FC = () => {
     const history = useHistory();
-    const { register, handleSubmit, errors } = useForm<Inputs>();
-    const [ registered, setRegistered ] = useState<boolean>(false);
-    const [ registerError, setRegisterError ] = useState<string | null>(null);
-    const onSubmit = (data: Inputs) => {
+    const { 
+        register, 
+        handleSubmit, 
+        errors, 
+        formState: { isSubmitting }
+    } = useForm<Inputs>();
+    const [registered, setRegistered] = useState<boolean>(false);
+    const [registerError, setRegisterError] = useState<string | null>(null);
+    const onSubmit = async (data: Inputs) => {
         setRegistered(false);
         if (data.password !== data.confirmPassword) {
             setRegisterError('Passwords are not the same!');
         }
         else {
             setRegisterError(null);
-            appRegister(data.username, data.email, data.password)
-            .then(success => {
-                if (success) {
-                    setRegisterError(null);
-                    setRegistered(true);
-                }
-                else setRegisterError('User already exists!');
-            });
+            await appRegister(data.username, data.email, data.password)
+                    .then(success => {
+                        if (success) {
+                            setRegisterError(null);
+                            setRegistered(true);
+                        }
+                        else setRegisterError('User already exists!');
+                    });
         }
     }
 
@@ -134,6 +140,7 @@ export const RegisterForm: React.FC = () => {
                     borderRadius={14}
                     bgColor='#0F4C81'
                     color='#FFFFFF'
+                    isLoading={isSubmitting}
                     _hover={{ bgColor: '#9E6EB5',
                             transform: 'scale(1.02)'}}
                     _active={{ bgColor: '#9E6EB5',
@@ -145,7 +152,7 @@ export const RegisterForm: React.FC = () => {
                         borderRadius={14}
                         borderColor='#9E6EB5'
                         color='#9E6EB5'
-                        onClick={() => history.push('/login')}
+                        onClick={() => history.push(Routes.LOGIN)}
                         _hover={{ bgColor: '#FFFFFF',
                                 transform: 'scale(1.02)'}}
                         _active={{ bgColor: '#FFFFFF',
