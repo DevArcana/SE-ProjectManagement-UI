@@ -1,15 +1,14 @@
-import React from "react";
-import { Flex, CSSReset, ChakraProvider } from "@chakra-ui/react";
+import * as React from "react";
+import { AuthProvider } from "./authentication/context/AuthProvider";
+import { AppRouter } from "./routing/AppRouter";
+import { ChakraProvider } from "@chakra-ui/react";
 
-import { MainView } from "./main/views/MainView";
-import { theme } from "./Theme";
 export const App: React.FC = () => {
   return (
-    <ChakraProvider theme={theme}>
-      <CSSReset />
-      <Flex height="100vh" justifyContent="left">
-        <MainView></MainView>
-      </Flex>
+    <ChakraProvider>
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
     </ChakraProvider>
   );
 };
