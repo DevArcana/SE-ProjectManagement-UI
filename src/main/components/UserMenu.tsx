@@ -1,40 +1,16 @@
-import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
+import { Button, Box, Text, HStack } from "@chakra-ui/react";
 import React from "react";
-import { FaUser, FaChevronDown } from "react-icons/fa";
-import { username } from "../views/MainView";
+import { FaUser } from "react-icons/fa";
+import { username } from "../../authentication/helpers/tokenStorage";
 export const UserMenu: React.FC = () => {
   return (
-    <Menu placement="bottom-end" autoSelect={false}>
-      <MenuButton
-        as={Button}
-        w="100%"
-        justifyContent="left"
-        leftIcon={<FaUser />}
-        rightIcon={<FaChevronDown />}
-        color="#fff"
-        colorScheme="transparent"
-      >
+    <HStack w="100% " color="#fff" fontSize="xl" paddingLeft="3px">
+      <Box color="#fff" colorScheme="transparent">
+        <FaUser />
+      </Box>
+      <Box w="100%" textAlign="center">
         {username}
-      </MenuButton>
-      <MenuList background="transparent" border="none" shadow="none">
-        <Menu autoSelect={false} placement="bottom-end">
-          <MenuButton
-            as={Button}
-            w="100%"
-            justifyContent="left"
-            rightIcon={<FaChevronDown />}
-            colorScheme="transparent"
-            color="#fff"
-          >
-            Settings
-          </MenuButton>
-          <MenuList background="transparent" border="none" shadow="none">
-            <MenuItem>Change username</MenuItem>
-            <MenuItem>Change password</MenuItem>
-            <MenuItem>Two-factor authentication</MenuItem>
-          </MenuList>
-        </Menu>
-      </MenuList>
-    </Menu>
+      </Box>
+    </HStack>
   );
 };
