@@ -1,18 +1,18 @@
 import { mode } from "@chakra-ui/theme-tools";
 import { extendTheme } from "@chakra-ui/react";
 import WebFont from "webfontloader";
-
 WebFont.load({
   google: {
     families: ["Viga:400", "sans-serif"],
   },
 });
+
 export const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
         bg: mode("fff", "gray.600")(props),
-        color: "#fff",
+        color: mode("gray.700", "#fff")(props),
         fontFamily: "Viga",
         fontWeight: "bold",
       },

@@ -30,7 +30,6 @@ function SideMenu() {
         {<FaIndent />}
       </Button>
       <Drawer
-        closeOnOverlayClick={false}
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
@@ -38,12 +37,12 @@ function SideMenu() {
         trapFocus={false}
         useInert={false}
       >
-        <DrawerOverlay closeOnOverlayClick="false">
+        <DrawerOverlay>
           <DrawerContent>
-            <DrawerCloseButton _hover={{ fontSize: "2xl" }}>
+            <DrawerCloseButton _hover={{ fontSize: "2xl" }} color="#fff">
               {<FaIndent />}
             </DrawerCloseButton>
-            <DrawerHeader>Application Name</DrawerHeader>
+            <DrawerHeader color="#fff">Application Name</DrawerHeader>
             <DrawerBody>
               <SideButtons></SideButtons>
               <UserMenu></UserMenu>
