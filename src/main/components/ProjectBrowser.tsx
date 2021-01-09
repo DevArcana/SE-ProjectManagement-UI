@@ -1,10 +1,29 @@
-import { Button, Box, SimpleGrid, VStack, Skeleton } from "@chakra-ui/react";
+import {
+  Button,
+  Box,
+  SimpleGrid,
+  VStack,
+  Skeleton,
+  useDisclosure,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useProjects } from "../hooks/useProjectAPI";
 import { ProjectInfo } from "../components/ProjectInfo";
-
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 const ProjectBrowser: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { projects, fetchProjects, isFetching } = useProjects();
   useEffect(() => {
     fetchProjects();
@@ -43,9 +62,45 @@ const ProjectBrowser: React.FC = () => {
               colorScheme="primary"
               color="#fff"
               boxShadow="lg"
+              onClick={onOpen}
             >
               +
             </Box>
+            <Modal
+              isOpen={isOpen}
+              onClose={onClose}
+              closeOnOverlayClick={false}
+            >
+              <ModalOverlay />
+              <ModalContent color="#fff">
+                <ModalHeader>Create a new Project</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <FormControl>
+                    <FormLabel>Project name</FormLabel>
+                    <Input placeholder="Project name" />
+                  </FormControl>
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button
+                    colorScheme="primary"
+                    mr={3}
+                    color="#fff"
+                    type="submit"
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    colorScheme="secondary"
+                    onClick={onClose}
+                    color="#fff"
+                  >
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
             <Box width="fit-content">Create Project</Box>
           </VStack>
         </SimpleGrid>
