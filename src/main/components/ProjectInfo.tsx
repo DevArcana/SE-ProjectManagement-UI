@@ -1,8 +1,12 @@
+import { Button, Box, SimpleGrid, VStack } from "@chakra-ui/react";
 import React from "react";
-import { Box, Button, VStack } from "@chakra-ui/react";
-const projectShortcut = "1";
-const projectName = "fullProjectName";
-export const ProjectIcon: React.FC = () => {
+import { Project } from "../api/projectAPI.types";
+
+interface Props {
+  project: Project;
+}
+
+export const ProjectInfo: React.FC<Props> = ({ project }) => {
   return (
     <VStack>
       <Box
@@ -16,9 +20,9 @@ export const ProjectIcon: React.FC = () => {
         color="#fff"
         boxShadow="lg"
       >
-        {projectShortcut}
+        {project.id}
       </Box>
-      <Box width="fit-content">{projectName}</Box>
+      <Box width="fit-content">{project.name}</Box>
     </VStack>
   );
 };
