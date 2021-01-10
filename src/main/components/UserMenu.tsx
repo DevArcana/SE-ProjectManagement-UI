@@ -1,7 +1,7 @@
 import { Button, Box, Text, HStack } from "@chakra-ui/react";
 import React from "react";
 import { FaUser } from "react-icons/fa";
-import { username } from "../../authentication/helpers/tokenStorage";
+import { Username } from "../../authentication/helpers/tokenStorage";
 export const UserMenu: React.FC = () => {
   return (
     <HStack w="100% " color="#fff" fontSize="xl" paddingLeft="3px">
@@ -9,7 +9,7 @@ export const UserMenu: React.FC = () => {
         <FaUser />
       </Box>
       <Box w="100%" textAlign="center">
-        {username}
+        {Username()}
       </Box>
     </HStack>
   );
