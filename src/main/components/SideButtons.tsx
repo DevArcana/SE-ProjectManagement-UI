@@ -1,8 +1,10 @@
 import React from "react";
 import { Button, VStack } from "@chakra-ui/react";
 import { FaRegCheckSquare, FaHome } from "react-icons/fa";
-
+import { Routes } from "../../routing/routes";
+import { useHistory } from "react-router-dom";
 export const SideButtons: React.FC = () => {
+  const history = useHistory();
   return (
     <>
       <br></br>
@@ -13,6 +15,7 @@ export const SideButtons: React.FC = () => {
           leftIcon={<FaHome />}
           justifyContent="left"
           color="gray.200"
+          onClick={() => history.push(Routes.HOME)}
         >
           Home
         </Button>
@@ -22,6 +25,7 @@ export const SideButtons: React.FC = () => {
           leftIcon={<FaRegCheckSquare />}
           justifyContent="left"
           color="gray.200"
+          onClick={() => history.push(Routes.TASKS)}
         >
           My Tasks
         </Button>
