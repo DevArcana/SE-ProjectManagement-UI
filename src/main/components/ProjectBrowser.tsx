@@ -27,7 +27,7 @@ const ProjectBrowser: React.FC = () => {
   const { projects, fetchProjects, isFetching } = useProjects();
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Skeleton isLoaded={!isFetching}>

@@ -1,4 +1,4 @@
-import { Button, Box, Text, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import { Username } from "../../authentication/helpers/tokenStorage";

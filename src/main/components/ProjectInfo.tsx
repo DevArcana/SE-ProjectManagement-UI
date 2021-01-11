@@ -1,4 +1,4 @@
-import { Button, Box, SimpleGrid, VStack } from "@chakra-ui/react";
+import { Button, Box, VStack } from "@chakra-ui/react";
 import React from "react";
 import { Project } from "../api/projectAPI.types";
 
