@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Project } from "../api/projectAPI.types";
-import { getProjects } from "../api/projectAPI";
+import { Project } from "../api/projectsAPI.types";
+import {getProjects, postProject} from "../api/projectsAPI";
 
 export function useProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -19,5 +19,17 @@ export function useProjects() {
     return false;
   }
 
-  return { projects, isFetching, fetchProjects };
+  async function createProject(name: string): Promise<boolean> {
+    setFetching(true);
+    const project = await postProject(name);
+
+    if (project == null) {
+      setFetching(false);
+      return false;
+    }
+
+    return await fetchProjects();
+  }
+
+  return { projects, isFetching, fetchProjects, createProject };
 }

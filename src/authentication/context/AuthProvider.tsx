@@ -1,11 +1,13 @@
 import React, { useState, createContext, useContext } from "react";
-import { storeToken, getToken } from "./../helpers/tokenStorage";
+import { storeToken, getToken } from "../helpers/tokenStorage";
 import { login as loginHelper } from "./../api/authAPI";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 interface Context {
   isAuthenticated: boolean;
   token: string | null;
+  username: string | null;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => Promise<boolean>;
 }
@@ -13,6 +15,7 @@ interface Context {
 export const AuthContext = createContext<Context>({
   isAuthenticated: false,
   token: null,
+  username: null,
   login: async () => false,
   logout: async () => false,
 });
@@ -67,6 +70,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       value={{
         isAuthenticated: token != null,
         token,
+        username: token != null ? (jwt_decode(token) as any)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] : null,
         login,
         logout,
       }}

@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Project } from "../api/projectAPI.types";
+import { Project } from "./projectsAPI.types";
 
-export const createProject = (name: string): Promise<Project | null> =>
+export const postProject = (name: string): Promise<Project | null> =>
   axios
     .post("api/projects", {
       name,
