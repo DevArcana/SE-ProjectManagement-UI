@@ -8,7 +8,7 @@ export const ProjectsView: React.FC = () => {
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [error, setError] = useState<string | null>(null);
 
