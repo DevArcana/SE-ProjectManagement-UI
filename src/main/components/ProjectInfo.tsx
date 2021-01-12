@@ -1,6 +1,6 @@
 import { Button, Box, VStack } from "@chakra-ui/react";
 import React from "react";
-import { Project } from "../api/projectAPI.types";
+import { Project } from "../../projects/api/projectsAPI.types";
 
 interface Props {
   project: Project;

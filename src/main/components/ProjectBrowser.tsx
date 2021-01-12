@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
-import { useProjects } from "../hooks/useProjectAPI";
+import { useProjects } from "../../projects/hooks/useProjects";
 import { ProjectInfo } from "../components/ProjectInfo";
 import {
   Modal,
@@ -41,12 +41,7 @@ const ProjectBrowser: React.FC = () => {
         <Box width="fit-content" fontSize="20px">
           Browse Projects
         </Box>
-        <Box
-          borderBottom="1px"
-          //opacity="0%"
-          borderColor="#000"
-          backgroundColor="black"
-        ></Box>
+        <hr />
         <SimpleGrid columns={10} spacing="10px" paddingTop="20px">
           {projects.map((project) => (
             <ProjectInfo key={project.id} project={project} />
