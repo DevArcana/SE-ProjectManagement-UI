@@ -12,6 +12,7 @@ import { MainView } from "./../main/views/MainView";
 import { Routes } from "./routes";
 import { RestrictedRoute } from "./RestrictedRoute";
 import {ProjectsView} from "../projects/views/ProjectsView";
+import {IssuesView} from "../issues/views/IssuesView";
 
 export const AppRouter: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -24,6 +25,9 @@ export const AppRouter: React.FC = () => {
         <Route path={Routes.REGISTER}>
           {!isAuthenticated ? <RegisterView /> : <Redirect to={Routes.HOME} />}
         </Route>
+        <RestrictedRoute path={Routes.ISSUES}>
+          <IssuesView />
+        </RestrictedRoute>
         <RestrictedRoute path={Routes.PROJECTS}>
           <ProjectsView />
         </RestrictedRoute>
