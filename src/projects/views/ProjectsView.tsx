@@ -19,7 +19,7 @@ export const ProjectsView: React.FC = () => {
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [error, setError] = useState<string | null>(null);
 
@@ -34,18 +34,19 @@ export const ProjectsView: React.FC = () => {
   };
 
   return (
-    <Skeleton isLoaded={!isFetching}>
-      <VStack
-        direction="row"
-        align="left"
-        paddingTop="50px"
-        paddingLeft="15%"
-        w="90%"
-      >
-        <Box width="fit-content" fontSize="20px">
-          Browse Projects
-        </Box>
-        <hr />
+    <VStack
+      direction="row"
+      align="left"
+      paddingTop="50px"
+      paddingLeft="15%"
+      w="90%"
+    >
+      <Box width="fit-content" fontSize="20px">
+        Browse Projects
+      </Box>
+      <hr />
+
+      <Skeleton isLoaded={!isFetching} startColor="#fff" endColor="blue.300">
         {error !== null && (
           <Alert status="error">
             <AlertIcon />
@@ -60,7 +61,7 @@ export const ProjectsView: React.FC = () => {
           )}
           <ProjectCreationForm onSubmit={onProjectCreate} />
         </SimpleGrid>
-      </VStack>
-    </Skeleton>
+      </Skeleton>
+    </VStack>
   );
 };
