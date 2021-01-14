@@ -1,11 +1,15 @@
 import axios from "axios";
 import { Issue } from "./issuesAPI.types";
 
-export const postIssue = (projectId: number, name: string, description: string | null = null): Promise<Issue | null> =>
+export const postIssue = (
+  projectId: number,
+  name: string,
+  description: string | null = null
+): Promise<Issue | null> =>
   axios
     .post(`/api/projects/${projectId}/issues`, {
       name,
-      description
+      description,
     })
     .then((response) => response.data)
     .catch(() => null);

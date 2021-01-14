@@ -15,7 +15,7 @@ import { FaIndent } from "react-icons/fa";
 import { UserMenu } from "./UserMenu";
 import { SideButtons } from "./SideButtons";
 function SideMenu() {
-  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+  const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
 
   return (
     <>
@@ -44,8 +44,8 @@ function SideMenu() {
             </DrawerCloseButton>
             <DrawerHeader color="#fff">Application Name</DrawerHeader>
             <DrawerBody>
-              <SideButtons/>
-              <UserMenu/>
+              <SideButtons />
+              <UserMenu />
             </DrawerBody>
             <DrawerFooter>
               <ColorModeSwitcher justifySelf="flex-end" />
