@@ -1,8 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import {useIssues} from "../hooks/useIssues";
-import {IssueCreationForm, IssueCreationFormData} from "../components/IssueCreationForm";
-import {IssuesList} from "../components/IssuesList";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useIssues } from "../hooks/useIssues";
+import {
+  IssueCreationForm,
+  IssueCreationFormData,
+} from "../components/IssueCreationForm";
+import { IssuesList } from "../components/IssuesList";
+import SideMenu from "../../main/components/SideMenu";
+import {
+  VStack,
+  Alert,
+  AlertIcon,
+  Box,
+  HStack,
+  Skeleton,
+  Center,
+} from "@chakra-ui/react";
 
 export const IssuesView: React.FC = () => {
   const { projectId } = useParams();
@@ -25,12 +38,43 @@ export const IssuesView: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>List of issues for project {projectId}</h2>
-      {error !== null && <div>{error}</div>}
-      {isFetching ? <div>Fetching...</div> : <IssuesList issues={issues} />}
-      <hr/>
-      <IssueCreationForm onSubmit={onIssueCreate} />
-    </div>
+    <>
+      <SideMenu></SideMenu>
+      <Center>
+        <VStack
+          direction="row"
+          align="left"
+          paddingTop="50px"
+          // paddingLeft="15%"
+          width="50%"
+        >
+          <HStack spacing="30%">
+            <Box width="fit-content" fontSize="20px">
+              Project: {projectId} | Issues
+            </Box>
+            <IssueCreationForm onSubmit={onIssueCreate} />
+          </HStack>
+
+          <hr />
+          <Skeleton
+            isLoaded={!isFetching}
+            startColor="#fff"
+            endColor="blue.300"
+          >
+            {error !== null && (
+              <Alert status="error">
+                <AlertIcon />
+                {error}
+              </Alert>
+            )}
+            {isFetching ? (
+              <div>Fetching...</div>
+            ) : (
+              <IssuesList issues={issues} />
+            )}
+          </Skeleton>
+        </VStack>
+      </Center>
+    </>
   );
-}
+};
