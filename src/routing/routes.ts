@@ -5,5 +5,4 @@ export enum Routes {
   TASKS = "/tasks",
   PROJECTS = "/projects",
   ISSUES = "/projects/:projectId/issues",
-  PROJECTID = "/projects/:projectId",
 }
