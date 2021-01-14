@@ -46,7 +46,7 @@ export const IssuesView: React.FC = () => {
           align="left"
           paddingTop="50px"
           // paddingLeft="15%"
-          width="50%"
+          minWidth="50%"
         >
           <HStack justify="space-between">
             <Box width="fit-content" fontSize="20px">

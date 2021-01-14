@@ -9,14 +9,15 @@ interface Props {
 
 export const IssuesList: React.FC<Props> = ({ issues }) => {
   return (
-    <Table colorScheme="primary" size="lg">
+    <Table colorScheme="primary" size="lg" variant="simple">
       {/* <TableCaption>Issues</TableCaption> */}
       <Thead>
         <Tr>
-          <Th isNumeric>ID</Th>
+          <Th>ID</Th>
           <Th>Name</Th>
           <Th>Description</Th>
           <Th>Assignee</Th>
+          <Th>Status</Th>
         </Tr>
       </Thead>
       <Tbody>
