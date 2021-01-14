@@ -53,7 +53,7 @@ export const ProjectsView: React.FC = () => {
             {error}
           </Alert>
         )}
-        <SimpleGrid columns={10} spacing="10px" paddingTop="20px">
+        <SimpleGrid minChildWidth="160px" spacing="10px" paddingTop="20px">
           {isFetching ? (
             <div>Fetching...</div>
           ) : (
