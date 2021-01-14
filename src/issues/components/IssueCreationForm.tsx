@@ -67,7 +67,13 @@ export const IssueCreationForm: React.FC<Props> = ({ onSubmit }) => {
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="primary" mr={3} color="#fff" type={"submit"}>
+              <Button
+                colorScheme="primary"
+                mr={3}
+                color="#fff"
+                type={"submit"}
+                onClick={onClose}
+              >
                 Save
               </Button>
               <Button colorScheme="secondary" onClick={onClose} color="#fff">
