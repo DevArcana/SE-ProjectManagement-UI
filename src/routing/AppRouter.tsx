@@ -33,6 +33,9 @@ export const AppRouter: React.FC = () => {
         <RestrictedRoute path={Routes.HOME}>
           <Redirect to={Routes.PROJECTS} />
         </RestrictedRoute>
+        <RestrictedRoute path={Routes.PROJECTID}>
+          <Redirect to={Routes.ISSUES} />
+        </RestrictedRoute>
       </Switch>
     </Router>
   );
