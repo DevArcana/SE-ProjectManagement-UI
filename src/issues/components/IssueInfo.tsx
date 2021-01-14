@@ -12,6 +12,7 @@ import {
   DrawerFooter,
   DrawerCloseButton,
   DrawerHeader,
+  Text,
 } from "@chakra-ui/react";
 interface Props {
   issue: Issue;
@@ -22,14 +23,14 @@ export const IssueInfo: React.FC<Props> = ({ issue }) => {
   return (
     <Tr>
       <Td>
-        <Button
+        <Text
+          as={Button}
           onClick={onOpen}
-          colorScheme="transparent"
-          _hover={{ bg: "secondary.100" }}
-          fontSize="lg"
+          bg="transparent"
+          _hover={{ bg: "secondary.100", fontSize: "lg" }}
         >
           {issue.id}
-        </Button>
+        </Text>
       </Td>
       <Drawer
         isOpen={isOpen}
