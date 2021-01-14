@@ -48,7 +48,7 @@ export const IssuesView: React.FC = () => {
           // paddingLeft="15%"
           width="50%"
         >
-          <HStack spacing="30%">
+          <HStack justify="space-between">
             <Box width="fit-content" fontSize="20px">
               Project: {projectId} | Issues
             </Box>

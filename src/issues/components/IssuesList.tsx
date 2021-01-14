@@ -1,7 +1,7 @@
 import React from "react";
 import { IssueInfo } from "./IssueInfo";
 import { Issue } from "../api/issuesAPI.types";
-import { Table, Thead, Tbody, Tr, Th, TableCaption } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
 
 interface Props {
   issues: Issue[];
