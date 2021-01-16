@@ -52,12 +52,5 @@
   "devDependencies": {
     "@types/react": "^16.14.2"
   },
-  "proxy": {
-    "/api": {
-      "target": "https://localhost:5001",
-      "pathRewrite": {
-        "^/api": "/"
-      }
-    }
-  }
+  "proxy": "https://localhost:5001"
 }
