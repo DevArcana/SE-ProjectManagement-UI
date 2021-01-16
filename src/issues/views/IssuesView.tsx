@@ -16,13 +16,16 @@ import {
   Skeleton,
   Center,
 } from "@chakra-ui/react";
+import {useProjectDetails} from "../../projects/hooks/useProjectDetails";
 
 export const IssuesView: React.FC = () => {
   const { projectId } = useParams();
+  const projectDetails = useProjectDetails(projectId);
   const { issues, isFetching, fetchIssues, createIssue } = useIssues(projectId);
 
   useEffect(() => {
     fetchIssues();
+    projectDetails.fetchProject();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +53,7 @@ export const IssuesView: React.FC = () => {
         >
           <HStack justify="space-between">
             <Box width="fit-content" fontSize="20px">
-              Project: {projectId} | Issues
+              Project: {!projectDetails.isFetching ? projectDetails.project?.name : "loading..."}
             </Box>
             <IssueCreationForm onSubmit={onIssueCreate} />
           </HStack>
