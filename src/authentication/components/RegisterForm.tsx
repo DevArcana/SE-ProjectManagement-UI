@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { register as appRegister } from '../api/authAPI';
 import { useHistory } from 'react-router-dom';
 import { Routes } from '../../routing/routes';
+import {useAuth} from "../context/AuthProvider";
 
 interface Inputs {
     username: string,
@@ -30,10 +31,9 @@ export const RegisterForm: React.FC = () => {
         errors, 
         formState: { isSubmitting }
     } = useForm<Inputs>();
-    const [registered, setRegistered] = useState<boolean>(false);
+    const { login } = useAuth();
     const [registerError, setRegisterError] = useState<string | null>(null);
     const onSubmit = async (data: Inputs) => {
-        setRegistered(false);
         if (data.password !== data.confirmPassword) {
             setRegisterError('Passwords are not the same!');
         }
@@ -42,8 +42,7 @@ export const RegisterForm: React.FC = () => {
             await appRegister(data.username, data.email, data.password)
                     .then(success => {
                         if (success) {
-                            setRegisterError(null);
-                            setRegistered(true);
+                            login(data.username, data.password);
                         }
                         else setRegisterError('User already exists!');
                     });
@@ -132,8 +131,19 @@ export const RegisterForm: React.FC = () => {
                     ref={register({ required: 'This field is required!' })}>I accept the policy and terms</Checkbox>
                 <FormErrorMessage>{errors.checked?.message}</FormErrorMessage>
             </FormControl>
-            {registered && <Text color='#19A974' mb={3}>User registered successfully!</Text>}
             <Flex justifyContent='space-between'>
+                <Button
+                  width='45%'
+                  bgColor='#FFFFFF'
+                  border='1px'
+                  borderRadius={14}
+                  borderColor='#9E6EB5'
+                  color='#9E6EB5'
+                  onClick={() => history.push(Routes.LOGIN)}
+                  _hover={{ bgColor: '#FFFFFF',
+                    transform: 'scale(1.02)'}}
+                  _active={{ bgColor: '#FFFFFF',
+                    transform: 'scale(1.02)'}}>Log In</Button>
                 <Button
                     type='submit'
                     width='45%'
@@ -145,18 +155,6 @@ export const RegisterForm: React.FC = () => {
                             transform: 'scale(1.02)'}}
                     _active={{ bgColor: '#9E6EB5',
                             transform: 'scale(1.02)'}}>Sign Up</Button>
-                    <Button 
-                        width='45%' 
-                        bgColor='#FFFFFF'
-                        border='1px'
-                        borderRadius={14}
-                        borderColor='#9E6EB5'
-                        color='#9E6EB5'
-                        onClick={() => history.push(Routes.LOGIN)}
-                        _hover={{ bgColor: '#FFFFFF',
-                                transform: 'scale(1.02)'}}
-                        _active={{ bgColor: '#FFFFFF',
-                                transform: 'scale(1.02)'}}>Log In</Button>
             </Flex>
         </form>
     );

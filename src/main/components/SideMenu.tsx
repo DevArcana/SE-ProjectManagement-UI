@@ -11,11 +11,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
-import { FaIndent } from "react-icons/fa";
+import { FaIndent, FaDoorOpen } from "react-icons/fa";
 import { UserMenu } from "./UserMenu";
 import { SideButtons } from "./SideButtons";
+import {useAuth} from "../../authentication/context/AuthProvider";
 function SideMenu() {
   const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: false });
+  const { logout } = useAuth();
+
+  const onLogout = () => {
+    logout();
+  }
 
   return (
     <>
@@ -48,6 +54,16 @@ function SideMenu() {
               <UserMenu />
             </DrawerBody>
             <DrawerFooter>
+              <Button
+                color={"gray.50"}
+                colorScheme="transparent"
+                onClick={onLogout}
+                size="lg"
+                justifyContent="center"
+                _hover={{ fontSize: "2xl" }}
+              >
+                {<FaDoorOpen />}
+              </Button>
               <ColorModeSwitcher justifySelf="flex-end" />
             </DrawerFooter>
           </DrawerContent>
