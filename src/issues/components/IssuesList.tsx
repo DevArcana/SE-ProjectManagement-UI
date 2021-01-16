@@ -21,7 +21,7 @@ export const IssuesList: React.FC<Props> = ({ issues }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {issues.map((issue) => (
+        {issues.map(issue => (
           <IssueInfo key={issue.id} issue={issue} />
         ))}
       </Tbody>
