@@ -20,3 +20,12 @@ export function getIssues(projectId: number): Promise<Issue[]> {
     .then((response) => response.data)
     .catch(() => null);
 }
+
+export const updateIssue = (
+  issue: Issue,
+  projectId: number
+): Promise<Issue | null> =>
+  axios
+    .put(`/api/projects/${projectId}/issues/${issue.id}`, issue)
+    .then((response) => response.data)
+    .catch(() => null);
