@@ -48,12 +48,12 @@ function SideMenu() {
             <DrawerCloseButton _hover={{ fontSize: "2xl" }} color="#fff">
               {<FaIndent />}
             </DrawerCloseButton>
-            <DrawerHeader color="#fff">Application Name</DrawerHeader>
-            <DrawerBody>
+            <DrawerHeader bg={"gray.700"} color="#fff">Application Name</DrawerHeader>
+            <DrawerBody bg={"gray.700"}>
               <SideButtons />
               <UserMenu />
             </DrawerBody>
-            <DrawerFooter>
+            <DrawerFooter bg={"gray.700"}>
               <Button
                 color={"gray.50"}
                 colorScheme="transparent"

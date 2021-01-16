@@ -6,8 +6,7 @@ import {
     FormControl,
     FormLabel,
     FormErrorMessage,
-    Checkbox,
-    Text
+    Checkbox
 } from "@chakra-ui/react";
 import { useForm } from 'react-hook-form';
 import { register as appRegister } from '../api/authAPI';

@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useState } from "react";
+import React, { useState } from "react";
 import { Issue } from "../api/issuesAPI.types";
 import { updateIssue } from "../api/issuesAPI";
 import { useParams } from "react-router-dom";
@@ -12,7 +12,6 @@ import {
   DrawerBody,
   DrawerContent,
   DrawerFooter,
-  DrawerCloseButton,
   DrawerHeader,
   Text,
   Select

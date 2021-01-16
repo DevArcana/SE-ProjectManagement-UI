@@ -11,7 +11,7 @@ export const theme = extendTheme({
   styles: {
     global: (props) => ({
       body: {
-        bg: mode("fff", "gray.600")(props),
+        bg: mode("#fff", "gray.600")(props),
         color: mode("gray.700", "#fff")(props),
         fontFamily: "Viga",
         fontWeight: "bold",
@@ -20,7 +20,7 @@ export const theme = extendTheme({
   },
   colors: {
     transparent: "transparent",
-    white: "#0f4c81",
+    white: "#fff",
     gray: {
       100: "#475897",
       200: "#c9c9c9",
