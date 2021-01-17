@@ -19,16 +19,6 @@ export const SideButtons: React.FC = () => {
         >
           Home
         </Button>
-        <Button
-          w="100%"
-          colorScheme="secondary"
-          leftIcon={<FaRegCheckSquare />}
-          justifyContent="left"
-          color="gray.200"
-          onClick={() => history.push(Routes.TASKS)}
-        >
-          My Tasks
-        </Button>
       </VStack>
 
       <br></br>
