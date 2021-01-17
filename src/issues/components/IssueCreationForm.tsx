@@ -46,7 +46,7 @@ export const IssueCreationForm: React.FC<Props> = ({ onSubmit }) => {
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent color="#fff">
+        <ModalContent color="#fff" bg={"gray.700"}>
           <ModalHeader>Add an issue</ModalHeader>
           <ModalCloseButton />
           <form onSubmit={handleSubmit(onSubmit)}>

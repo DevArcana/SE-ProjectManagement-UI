@@ -24,8 +24,6 @@ import {
   AccordionPanel,
   AccordionIcon
 } from "@chakra-ui/react";
-import { getCollaborators } from './../api/issuesAPI';
-import { Collaborator } from './../api/issuesAPI.types';
 
 interface FormData {
   username: string;
