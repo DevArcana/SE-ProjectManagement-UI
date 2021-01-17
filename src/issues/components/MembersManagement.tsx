@@ -32,7 +32,7 @@ interface FormData {
 export const MembersManagement: React.FC = () => {
   const { register, handleSubmit, errors } = useForm<FormData>();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { users, isFetching, fetchUsers } = useUsers();
+  const { users, fetchUsers } = useUsers();
   const { projectId } = useParams();
   const collaborators = useCollaborators(projectId);
   const onSubmit = async (data: FormData) => {
@@ -77,7 +77,7 @@ export const MembersManagement: React.FC = () => {
                   bg={"white"}
                   ref={register({ required: true })}>
                   {users.map(user => (
-                    <option value={user.userName}>{user.userName}</option>
+                    <option key={user.userName} value={user.userName}>{user.userName}</option>
                   ))}
                 </Select>
                 {errors.username && <span>Username is required!</span>}
@@ -95,9 +95,8 @@ export const MembersManagement: React.FC = () => {
                     </AccordionButton>
                     <AccordionPanel pb={4}>
                       <VStack>
-                        {console.log(collaborators.collaborators)}
                         {collaborators.collaborators.map(collaborator => (
-                          <HStack justify="space-between" width="full">
+                          <HStack key={collaborator.username} justify="space-between" width="full">
                             <Box>{collaborator.username}</Box>
                             <Button variant="transparent" onClick={() => collaborators.deleteCollaborator(collaborator.username)}>
                               <FaRegTrashAlt />
