@@ -5,3 +5,9 @@ export interface Issue {
   assignee: string;
   status: number;
 }
+
+export interface User {
+  userName: string;
+  email: string;
+  id: string;
+}

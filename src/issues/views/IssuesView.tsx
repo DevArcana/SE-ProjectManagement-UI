@@ -5,6 +5,7 @@ import {
   IssueCreationForm,
   IssueCreationFormData,
 } from "../components/IssueCreationForm";
+import { MembersManagement } from "../components/MembersManagement";
 import { IssuesList } from "../components/IssuesList";
 import SideMenu from "../../main/components/SideMenu";
 import {
@@ -14,7 +15,7 @@ import {
   Box,
   HStack,
   Skeleton,
-  Center,
+  Center
 } from "@chakra-ui/react";
 
 export const IssuesView: React.FC = () => {
@@ -52,7 +53,10 @@ export const IssuesView: React.FC = () => {
             <Box width="fit-content" fontSize="20px">
               Project: {projectId} | Issues
             </Box>
-            <IssueCreationForm onSubmit={onIssueCreate} />
+            <HStack width="fit-content">
+              <MembersManagement />
+              <IssueCreationForm onSubmit={onIssueCreate} />
+            </HStack>
           </HStack>
 
           <hr />
