@@ -57,7 +57,7 @@ export const IssuesView: React.FC = () => {
               Project: {!projectDetails.isFetching ? projectDetails.project?.name : "loading..."}
             </Box>
             <HStack width="fit-content">
-              <MembersManagement />
+              { projectDetails.project?.canManage && <MembersManagement /> }
               <IssueCreationForm onSubmit={onIssueCreate} />
             </HStack>
           </HStack>
