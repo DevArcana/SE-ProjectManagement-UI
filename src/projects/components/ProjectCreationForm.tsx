@@ -43,7 +43,7 @@ export const ProjectCreationForm: React.FC<Props> = ({ onSubmit }) => {
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent color="#fff">
+        <ModalContent bg={"gray.700"} color="#fff">
           <ModalHeader>Create a new Project</ModalHeader>
           <ModalCloseButton />
           <form onSubmit={handleSubmit(onSubmit)}>
