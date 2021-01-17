@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Issue } from "../api/issuesAPI.types";
-import {getIssues, postIssue} from "../api/issuesAPI";
+import {Collaborator, Issue} from "../api/issuesAPI.types";
+import {getIssues, postAssignUser, postIssue} from "../api/issuesAPI";
 
 export function useIssues(projectId: number) {
   const [issues, setIssues] = useState<Issue[]>([]);
@@ -8,11 +8,11 @@ export function useIssues(projectId: number) {
 
   async function fetchIssues(): Promise<boolean> {
     setFetching(true);
-    const issues = await getIssues(projectId);
+    const result = await getIssues(projectId);
     setFetching(false);
 
-    if (issues !== null && issues.length > 0) {
-      setIssues(issues);
+    if (result !== null) {
+      setIssues(result);
       return true;
     }
 
@@ -31,5 +31,11 @@ export function useIssues(projectId: number) {
     return await fetchIssues();
   }
 
-  return { issues, isFetching, fetchIssues, createIssue };
+  async function assignUser(user: Collaborator, issue: Issue): Promise<boolean> {
+    setFetching(true);
+    await postAssignUser(projectId, issue.id, user);
+    return await fetchIssues();
+  }
+
+  return { issues, isFetching, fetchIssues, createIssue, assignUser };
 }

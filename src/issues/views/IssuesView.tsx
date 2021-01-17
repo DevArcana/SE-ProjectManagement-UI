@@ -18,15 +18,18 @@ import {
   Center
 } from "@chakra-ui/react";
 import {useProjectDetails} from "../../projects/hooks/useProjectDetails";
+import {useAssignableUsers} from "../hooks/useAssignableUsers";
 
 export const IssuesView: React.FC = () => {
   const { projectId } = useParams();
   const projectDetails = useProjectDetails(projectId);
-  const { issues, isFetching, fetchIssues, createIssue } = useIssues(projectId);
+  const { issues, isFetching, fetchIssues, createIssue, assignUser } = useIssues(projectId);
+  const {assignableUsers, fetchAssignableUsers} = useAssignableUsers(projectId);
 
   useEffect(() => {
     fetchIssues();
     projectDetails.fetchProject();
+    fetchAssignableUsers();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +80,7 @@ export const IssuesView: React.FC = () => {
             {isFetching ? (
               <div>Fetching...</div>
             ) : (
-              <IssuesList issues={issues} />
+              <IssuesList issues={issues} onAssign={assignUser} assignableUsers={assignableUsers} />
             )}
           </Skeleton>
         </VStack>

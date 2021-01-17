@@ -65,3 +65,21 @@ export const deleteCollaborator = (
     .then(response => response.data)
     .catch(() => null)
 );
+
+export const postAssignUser = (
+  projectId: number,
+  issueId: number,
+  user: Collaborator
+): Promise<boolean> => (
+  axios
+    .post(`/api/projects/${projectId}/issues/${issueId}/assign`, user)
+    .then(response => response.status === 200)
+    .catch(() => false)
+);
+
+export const getAssignableUsers = (projectId: number): Promise<Collaborator[] | null> => (
+  axios
+    .get(`/api/projects/${projectId}/assignable`)
+    .then(response => response.data)
+    .catch(() => null)
+);
