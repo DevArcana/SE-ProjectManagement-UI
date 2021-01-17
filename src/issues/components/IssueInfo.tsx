@@ -76,23 +76,11 @@ export const IssueInfo: React.FC<Props> = props => {
       <Td>{issue.description}</Td>
       <Td>{issue.assignee}</Td>
       <Td>
-      <Select onChange={handleStatusChange} value={issue.status}>
-        <option value={0}>To do</option>
-        <option value={1}>Doing</option>
-        <option value={2}>Done</option>
-      </Select>
-        
-        {/* {(() => {
-        switch (issue.status) {
-          case 0:
-            return "To do";
-          case 1:
-            return "Doing";
-          case 2:
-            return "Done";
-          default:
-            return "";
-      }})()} */}
+        <Select onChange={handleStatusChange} value={issue.status}>
+          <option value={0}>To do</option>
+          <option value={1}>Doing</option>
+          <option value={2}>Done</option>
+        </Select>
       </Td>
     </Tr>
   );
