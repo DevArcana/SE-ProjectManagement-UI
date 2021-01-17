@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useUsers } from "../hooks/useUsers";
-import { postCollaborator } from "../api/issuesAPI";
+import { useCollaborators } from "../hooks/useCollaborators";
 import { useParams } from "react-router-dom";
+import { FaRegTrashAlt } from "react-icons/fa";
 import {
   useDisclosure,
   VStack,
+  HStack,
   Box,
   Button,
   Modal,
@@ -14,10 +16,16 @@ import {
   ModalHeader,
   ModalContent,
   ModalCloseButton,
-  Input,
   ModalFooter,
-  Select
+  Select,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon
 } from "@chakra-ui/react";
+import { getCollaborators } from './../api/issuesAPI';
+import { Collaborator } from './../api/issuesAPI.types';
 
 interface FormData {
   username: string;
@@ -28,16 +36,15 @@ export const MembersManagement: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { users, isFetching, fetchUsers } = useUsers();
   const { projectId } = useParams();
+  const collaborators = useCollaborators(projectId);
   const onSubmit = async (data: FormData) => {
-    const user = data.username;
-    console.log(user);
-    console.log(typeof user);
-    console.log(typeof projectId);
-    await postCollaborator(projectId, user);
+    const username = data.username;
+    await collaborators.addCollaborator(username);
   }
 
   useEffect(() => {
     fetchUsers();
+    collaborators.fetchCollaborators();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -59,7 +66,7 @@ export const MembersManagement: React.FC = () => {
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
         <ModalOverlay />
-        <ModalContent color="#fff">
+        <ModalContent color="#fff" bg={"gray.700"}>
           <ModalHeader>Manage members</ModalHeader>
           <ModalCloseButton />
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -68,12 +75,41 @@ export const MembersManagement: React.FC = () => {
                 <Select 
                   name="username"
                   placeholder="Select user to invite"
+                  color={"gray.700"}
+                  bg={"white"}
                   ref={register({ required: true })}>
                   {users.map(user => (
                     <option value={user.userName}>{user.userName}</option>
                   ))}
                 </Select>
                 {errors.username && <span>Username is required!</span>}
+                <Accordion allowToggle width="full">
+                  <AccordionItem
+                    color={"gray.700"}
+                    bg={"white"}
+                    borderRadius={6}
+                  >
+                    <AccordionButton pr={"10px"}>
+                      <Box flex="1" textAlign="left">
+                        Show current collaborators
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel pb={4}>
+                      <VStack>
+                        {console.log(collaborators.collaborators)}
+                        {collaborators.collaborators.map(collaborator => (
+                          <HStack justify="space-between" width="full">
+                            <Box>{collaborator.username}</Box>
+                            <Button variant="transparent" onClick={() => collaborators.deleteCollaborator(collaborator.username)}>
+                              <FaRegTrashAlt />
+                            </Button>
+                          </HStack>
+                        ))}
+                      </VStack>
+                    </AccordionPanel>
+                  </AccordionItem>
+                </Accordion>
               </VStack>
             </ModalBody>
 

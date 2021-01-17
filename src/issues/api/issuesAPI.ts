@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Issue, User } from "./issuesAPI.types";
+import { Issue, User, Collaborator } from "./issuesAPI.types";
 
 export const postIssue = (
   projectId: number,
@@ -39,7 +39,7 @@ export const getUsers = (): Promise<User[] | null> => (
     .catch(() => null)
 );
 
-export const getCollaborators = (projectId: number): Promise<User[] | null> => (
+export const getCollaborators = (projectId: number): Promise<Collaborator[] | null> => (
   axios
     .get(`/api/projects/${projectId}/collaborators`)
     .then(response => response.data)
@@ -48,10 +48,20 @@ export const getCollaborators = (projectId: number): Promise<User[] | null> => (
 
 export const postCollaborator = (
   projectId: number,
-  username: string
-): Promise<User[] | null> => (
+  username: Collaborator
+): Promise<Collaborator | null> => (
   axios
-    .post(`/api/projects/${projectId}/collaborators`, {username})
+    .post(`/api/projects/${projectId}/collaborators`, username)
+    .then(response => response.data)
+    .catch(() => null)
+);
+
+export const deleteCollaborator = (
+  projectId: number,
+  username: Collaborator
+): Promise<boolean> => (
+  axios
+    .delete(`/api/projects/${projectId}/collaborators?name=${username.username}`)
     .then(response => response.data)
     .catch(() => null)
 );

@@ -12,3 +12,7 @@ export interface User {
   email: string;
   id: string;
 }
+
+export interface Collaborator {
+  username: string;
+}
