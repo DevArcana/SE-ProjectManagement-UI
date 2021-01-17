@@ -4,6 +4,7 @@ export interface Issue {
   description: string;
   assignee: string;
   status: number;
+  closed: boolean;
 }
 
 export interface User {
