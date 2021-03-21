@@ -24,6 +24,7 @@
     "react-icons": "^3.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "recharts": "^2.0.8",
     "typescript": "^3.9.5",
     "web-vitals": "^0.2.2",
     "webfontloader": "^1.6.28"
@@ -52,5 +53,5 @@
   "devDependencies": {
     "@types/react": "^16.14.2"
   },
-  "proxy": "https://localhost:5001"
+  "proxy": "https://se-projectmanagement-api.herokuapp.com"
 }
